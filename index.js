@@ -8,7 +8,7 @@ async function bgImage() {
 
   document.body.style.backgroundImage = `url(${data.urls.regular})`;
 
-  userName.textContent = `Photo by: ${data.user.name}`;
+  userName.textContent = `Image by: ${data.user.name}`;
 
   console.log(data);
 }
