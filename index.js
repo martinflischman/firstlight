@@ -1,4 +1,5 @@
 const userName = document.getElementById("user-name");
+const cryptoStats = document.getElementById("crypto-stats");
 
 async function bgImage() {
   try {
@@ -20,3 +21,34 @@ async function bgImage() {
 }
 
 bgImage();
+
+async function getCoins() {
+  try {
+    const response = await fetch(
+      "https://api.coingecko.com/api/v3/coins/dogecoin",
+    );
+    const data = await response.json();
+
+    console.log(data);
+
+    cryptoStats.innerHTML = `
+      <div class="flex gap-2 pb-2 items-center">
+        <img src="${data.image.small}" alt="Crypto logo">
+        <h1 class="text-2xl">${data.name}</h1>
+      </div>
+      <p class="text-xl">
+        🎯: $${data.market_data.current_price.usd}
+      </p>
+      <p class="text-xl">
+        👆: $${data.market_data.high_24h.usd}
+      </p>
+      <p class="text-xl">
+        👇: $${data.market_data.low_24h.usd}
+      </p>
+    `;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+getCoins();
