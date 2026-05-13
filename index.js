@@ -8,8 +8,6 @@ async function bgImage() {
     );
     const data = await response.json();
 
-    console.log(data.urls.regular);
-
     document.body.style.backgroundImage = `url(${data.urls.regular})`;
     userName.textContent = `Image by: ${data.user.name}`;
   } catch (error) {
@@ -33,8 +31,6 @@ async function getCoins() {
     }
 
     const data = await response.json();
-
-    console.log(data);
 
     cryptoStats.innerHTML = `
       <div class="flex gap-2 pb-2 items-center">
