@@ -1,6 +1,9 @@
 const userName = document.getElementById("user-name");
 const cryptoStats = document.getElementById("crypto-stats");
 const currentTime = document.getElementById("current-time");
+const weatherIcon = document.getElementById("weather-icon");
+const weatherTemp = document.getElementById("weather-temp");
+const weatherCity = document.getElementById("weather-city");
 
 async function bgImage() {
   try {
@@ -66,3 +69,27 @@ function getTime() {
 
 getTime();
 setInterval(getTime, 1000);
+
+async function getWeather() {
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    try {
+      const response = await fetch(
+        `https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`,
+      );
+
+      if (!response.ok) {
+        throw Error("Weather data not available");
+      }
+
+      const data = await response.json();
+
+      weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+      weatherTemp.textContent = `${Math.round(data.main.temp)}°`;
+      weatherCity.textContent = data.name;
+    } catch (error) {
+      console.error(error);
+    }
+  });
+}
+
+getWeather();
