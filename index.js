@@ -27,6 +27,11 @@ async function getCoins() {
     const response = await fetch(
       "https://api.coingecko.com/api/v3/coins/dogecoin",
     );
+
+    if (!response.ok) {
+      throw Error("Something went wrong");
+    }
+
     const data = await response.json();
 
     console.log(data);
