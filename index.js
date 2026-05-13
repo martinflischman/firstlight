@@ -1,5 +1,6 @@
 const userName = document.getElementById("user-name");
 const cryptoStats = document.getElementById("crypto-stats");
+const currentTime = document.getElementById("current-time");
 
 async function bgImage() {
   try {
@@ -53,3 +54,15 @@ async function getCoins() {
 }
 
 getCoins();
+
+function getTime() {
+  const date = new Date();
+  currentTime.textContent = date.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
+getTime();
+setInterval(getTime, 1000);
